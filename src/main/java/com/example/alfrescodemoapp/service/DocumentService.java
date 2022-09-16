@@ -166,7 +166,7 @@ public class DocumentService {
         return null;
     }
 
-    public ResponseEntity<ApiResponse<List<DocumentDTO>, ErrorDTO>> getDocumentsByFolderId(String folderId) {
+    public ResponseEntity<ApiResponse<List<DocumentDTO>, ErrorDTO>> getDocumentsByFolderId(Long folderId) {
 
         List<DocumentDTO> documents = repository.getDocumentsByFolderId(folderId);
 

@@ -53,7 +53,7 @@ public class DocumentController {
     }
 
     @GetMapping("/documents/{folderId}")
-    public ResponseEntity<ApiResponse<List<DocumentDTO>,ErrorDTO>> getDocumentsByFolderId(@PathVariable String folderId) {
+    public ResponseEntity<ApiResponse<List<DocumentDTO>,ErrorDTO>> getDocumentsByFolderId(@PathVariable Long folderId) {
         return service.getDocumentsByFolderId(folderId);
     }
 }
