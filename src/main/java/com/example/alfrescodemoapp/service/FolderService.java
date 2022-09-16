@@ -2,6 +2,7 @@ package com.example.alfrescodemoapp.service;
 
 import com.example.alfrescodemoapp.dto.*;
 import com.example.alfrescodemoapp.entity.FolderEntity;
+import com.example.alfrescodemoapp.repository.DocumentRepository;
 import com.example.alfrescodemoapp.repository.FolderRepository;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.example.alfrescodemoapp.service.AlfrescoFolderService.documentsId;
+import static com.example.alfrescodemoapp.service.AlfrescoFolderService.foldersId;
+
 @Service
 public class FolderService {
 
     private final FolderRepository repository;
     private final AlfrescoFolderService alfrescoFolderService;
 
+    private final DocumentRepository documentRepository;
+
     @Autowired
-    public FolderService(FolderRepository repository, AlfrescoFolderService alfrescoFolderService) {
+    public FolderService(FolderRepository repository, AlfrescoFolderService alfrescoFolderService, DocumentRepository documentRepository) {
         this.repository = repository;
         this.alfrescoFolderService = alfrescoFolderService;
+        this.documentRepository = documentRepository;
     }
 
     public ResponseEntity<ApiResponse<List<FolderDTO>, ErrorDTO>> getAll() {
@@ -112,9 +119,19 @@ public class FolderService {
         if (byFolderId.isPresent()) {
 
             Folder folderById = alfrescoFolderService.getFolderById(folderId);
-            alfrescoFolderService.delete(folderById);
 
-            repository.delete(byFolderId.get());
+
+            alfrescoFolderService.getAllChildIds(folderById);
+
+            System.out.println("foldersId = " + foldersId);
+            System.out.println("documentsId = " + documentsId);
+
+
+            documentRepository.deleteAllByDocumentIdIn(documentsId);
+
+            repository.deleteAllByFolderIdIn(foldersId);
+
+            alfrescoFolderService.delete(folderById);
 
             responseEntity = new ResponseEntity<>(new ApiResponse<>(
                     HttpStatus.NO_CONTENT.value()),
