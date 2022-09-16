@@ -31,9 +31,9 @@ public class DocumentController {
     }
 
     @GetMapping("/{documentId}/{version}")
-    public @ResponseBody ResponseEntity get(@PathVariable String documentId,@PathVariable String version) {
-
-        return service.get(documentId,version);
+    public @ResponseBody ResponseEntity download(@PathVariable String documentId,@PathVariable String version) {
+        System.out.println("version = " + version);
+        return service.download(documentId,version);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
