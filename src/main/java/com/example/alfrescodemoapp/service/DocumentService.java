@@ -63,7 +63,7 @@ public class DocumentService {
     }
 
     @SneakyThrows
-    public ResponseEntity get(String documentId,String version) {
+    public ResponseEntity download(String documentId, String version) {
 
         Optional<DocumentEntity> byDocumentId = repository.findByDocumentId(documentId);
 
@@ -73,7 +73,7 @@ public class DocumentService {
         if (byDocumentId.isPresent()) {
 
             DocumentEntity documentEntity = byDocumentId.get();
-            Document document = alfrescoDocumentService.getDocumentById(documentEntity.getDocumentId(),version);
+            Document document = alfrescoDocumentService.getDocumentById(documentEntity.getDocumentId(), version);
             ContentStream contentStream = document.getContentStream();
 
             InputStream inputStream = contentStream.getStream();
@@ -84,7 +84,8 @@ public class DocumentService {
             responseHeaders.add("content-disposition", "attachment; filename=" +
                     document.getName());
             responseHeaders.add("Content-Type", document.getContentStreamMimeType());
-            responseHeaders.add("fileName", document.getName());
+            responseHeaders.add("file-name",document.getName());
+
 
             respEntity = new ResponseEntity(out, responseHeaders, HttpStatus.OK);
         }
@@ -165,7 +166,7 @@ public class DocumentService {
         return null;
     }
 
-    public ResponseEntity<ApiResponse<List<DocumentDTO>, ErrorDTO>>     getDocumentsByFolderId(String folderId) {
+    public ResponseEntity<ApiResponse<List<DocumentDTO>, ErrorDTO>> getDocumentsByFolderId(String folderId) {
 
         List<DocumentDTO> documents = repository.getDocumentsByFolderId(folderId);
 
