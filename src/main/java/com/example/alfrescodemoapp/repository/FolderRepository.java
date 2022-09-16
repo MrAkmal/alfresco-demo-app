@@ -25,4 +25,7 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
 
     @Query("select new com.example.alfrescodemoapp.dto.FolderDTO(f.id,f.name,f.parentId,f.folderId) from FolderEntity f where f.parentId = :parentId")
     List<FolderDTO> findAllByParentId(String parentId);
+
+    @Query("select new com.example.alfrescodemoapp.dto.FolderDTO(f.id,f.name,f.parentId,f.folderId) from FolderEntity f where f.parentId = '0'")
+    List<FolderDTO> getMainFolders();
 }

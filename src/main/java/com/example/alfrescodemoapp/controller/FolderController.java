@@ -51,5 +51,10 @@ public class FolderController {
         return service.getSubFolders(folderId);
     }
 
+    @GetMapping("/main_folders")
+    public ResponseEntity<ApiResponse<List<FolderDTO>,ErrorDTO>> getMainFolders() {
+        return service.getMainFolders();
+    }
+
 
 }

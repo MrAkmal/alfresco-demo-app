@@ -130,4 +130,10 @@ public class FolderService {
 
         return folders.isEmpty() ? new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value()), HttpStatus.OK) : new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), folders), HttpStatus.OK);
     }
+
+    public ResponseEntity<ApiResponse<List<FolderDTO>, ErrorDTO>> getMainFolders() {
+        List<FolderDTO> folders = repository.getMainFolders();
+
+        return folders.isEmpty() ? new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value()), HttpStatus.OK) : new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), folders), HttpStatus.OK);
+    }
 }
