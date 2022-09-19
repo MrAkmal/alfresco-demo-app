@@ -130,6 +130,8 @@ public class FolderService {
             documentRepository.deleteAllByDocumentIdIn(documentsId);
 
             repository.deleteAllByFolderIdIn(foldersId);
+            repository.deleteByFolderId(folderById.getId());
+
 
             alfrescoFolderService.delete(folderById);
 

@@ -36,4 +36,10 @@ public interface FolderRepository extends JpaRepository<FolderEntity, Long> {
     @Transactional
     void deleteAllByFolderIdIn(List<String> foldersId);
 
+
+
+    @Modifying
+    @Transactional
+    void  deleteByFolderId(String folderId);
+
 }
