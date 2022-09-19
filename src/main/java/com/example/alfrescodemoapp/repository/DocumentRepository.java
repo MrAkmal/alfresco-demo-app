@@ -26,7 +26,6 @@ public interface DocumentRepository extends JpaRepository<DocumentEntity, Long> 
     @Query("select d.folder.folderId from DocumentEntity d where d.id=:id")
     Optional<String> getId(String id);
 
-    List<DocumentDTO> getDocumentsByFolderId(Long folderId);
 
 
     @Modifying
