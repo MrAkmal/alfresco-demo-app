@@ -36,6 +36,12 @@ public class DocumentController {
         return service.download(documentId,version);
     }
 
+    @GetMapping("/document/get/{id}")
+    public ResponseEntity<ApiResponse<String, ErrorDTO>> getDocument(@PathVariable String id) {
+        return service.getDocument(id);
+    }
+
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<List<DocumentDTO>, ErrorDTO>> create(@RequestBody MultipartFile multipartFile, @RequestParam String folderId) {
 

@@ -21,7 +21,10 @@ public interface DocumentRepository extends JpaRepository<DocumentEntity, Long> 
     Optional<DocumentEntity> findByDocumentId(String documentId);
 
     @Query("select new com.example.alfrescodemoapp.dto.DocumentDTO(d.id,d.documentId,d.name,d.size,d.contentType) from DocumentEntity d where d.folder.id=:folderId")
-    List<DocumentDTO> getDocumentsByFolderId(String folderId);
+    List<DocumentDTO> getDocumentsByFolderId(Long folderId);
+
+    @Query("select d.folder.folderId from DocumentEntity d where d.id=:id")
+    Optional<String> getId(String id);
 
 
 

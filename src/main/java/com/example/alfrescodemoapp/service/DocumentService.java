@@ -185,4 +185,13 @@ public class DocumentService {
         return documents.isEmpty() ? new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value()), HttpStatus.OK) :
                 new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), documents), HttpStatus.OK);
     }
+
+    public ResponseEntity<ApiResponse<String, ErrorDTO>> getDocument(String id) {
+
+        Optional<String> byId = repository.getId(id);
+
+
+        return byId.isEmpty() ? new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value()), HttpStatus.OK) :
+                new ResponseEntity<>(new ApiResponse<>(HttpStatus.OK.value(), byId.get()), HttpStatus.OK);
+    }
 }
